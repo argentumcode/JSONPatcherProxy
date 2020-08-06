@@ -1,12 +1,13 @@
 {
-  "name": "jsonpatcherproxy",
+  "name": "@argentumcode/jsonpatcherproxy-commonjs",
   "version": "0.1.0-0",
   "description": "Lean and mean Javascript implementation of the JSON-Patch standard (RFC 6902). Update JSON documents using delta patches.",
-  "main": "src/jsonpatcherproxy.js",
+  "main": "commonjs/jsonpatcherproxy.js",
   "typings": "index.d.ts",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "build": "webpack",
+    "build-commonjs": "babel --plugins @babel/plugin-transform-modules-commonjs src/jsonpatcherproxy.js > commonjs/jsonpatcherproxy.js",
     "build-watch": "webpack --watch",
     "bench": "node --experimental-modules test/spec/proxyBenchmark.js",
     "bench-compare": "node --experimental-modules test/spec/proxyBenchmark.js --compare",
@@ -25,6 +26,9 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "@babel/cli": "^7.10.0",
     "benchmark": "^2.1.4",
     "chalk": "^2.4.2",
     "jasmine": "^3.4.0",
