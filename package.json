@@ -6,14 +6,14 @@
   "typings": "index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --config webpack.config.cjs",
     "build-commonjs": "rm -rf commonjs && mkdir commonjs && babel --plugins @babel/plugin-transform-modules-commonjs src -d commonjs && node tools/release.js",
-    "build-watch": "webpack --watch",
+    "build-watch": "webpack --config webpack.config.cjs --watch",
     "bench": "node --experimental-modules test/spec/proxyBenchmark.js",
     "bench-compare": "node --experimental-modules test/spec/proxyBenchmark.js --compare",
     "test": "node --experimental-modules jasmine-run.js",
     "test-debug": "node --inspect-brk --experimental-modules jasmine-run.js",
-    "version": "webpack && git add -A"
+    "version": "webpack --config webpack.config.cjs && git add -A"
   },
   "keywords": [
     "proxy",
