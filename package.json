@@ -4,10 +4,10 @@
   "description": "Lean and mean Javascript implementation of the JSON-Patch standard (RFC 6902). Update JSON documents using delta patches.",
   "main": "commonjs/jsonpatcherproxy.js",
   "typings": "index.d.ts",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "build": "webpack",
-    "build-commonjs": "babel --plugins @babel/plugin-transform-modules-commonjs src/jsonpatcherproxy.js > commonjs/jsonpatcherproxy.js",
+    "build-commonjs": "rm -rf commonjs && mkdir commonjs && babel --plugins @babel/plugin-transform-modules-commonjs src -d commonjs && node tools/release.js",
     "build-watch": "webpack --watch",
     "bench": "node --experimental-modules test/spec/proxyBenchmark.js",
     "bench-compare": "node --experimental-modules test/spec/proxyBenchmark.js --compare",
