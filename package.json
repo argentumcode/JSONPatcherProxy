@@ -1,6 +1,6 @@
 {
   "name": "@argentumcode/jsonpatcherproxy-commonjs",
-  "version": "0.1.0-0-2",
+  "version": "0.1.0-0-3",
   "description": "Lean and mean Javascript implementation of the JSON-Patch standard (RFC 6902). Update JSON documents using delta patches.",
   "main": "commonjs/jsonpatcherproxy.js",
   "typings": "index.d.ts",
