@@ -3,7 +3,7 @@
 import * as fs from 'fs';
 
 const packageFile = JSON.parse(fs.readFileSync('package.json', {encoding: 'utf-8'}));
-packageFile['module'] = 'commonjs';
+packageFile['type'] = 'commonjs';
 packageFile['main'] = 'jsonpatcherproxy.js';
 fs.writeFileSync('commonjs/package.json', JSON.stringify(packageFile));
 fs.copyFileSync('index.d.ts', 'commonjs/index.d.ts');
