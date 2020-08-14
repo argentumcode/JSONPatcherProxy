@@ -264,8 +264,8 @@ const JSONPatcherProxy = (function() {
   function JSONPatcherProxy(root, showDetachedWarning) {
     this._isProxifyingTreeNow = false;
     this._isObserving = false;
-    this._treeMetadataMap = new Map();
-    this._parenthoodMap = new Map();
+    this._treeMetadataMap = new WeakMap();
+    this._parenthoodMap = new WeakMap();
     // default to true
     if (typeof showDetachedWarning !== 'boolean') {
       showDetachedWarning = true;
@@ -407,15 +407,37 @@ const JSONPatcherProxy = (function() {
    * Revokes all proxies, rendering the observed object useless and good for garbage collection @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/revocable}
    */
   JSONPatcherProxy.prototype.revoke = function() {
-    this._treeMetadataMap.forEach(el => {
-      el.revoke();
-    });
+    const revokeTreeRecursively = (node) => {
+      for (let key in node) {
+        if (node.hasOwnProperty(key)) {
+          if (node[key] instanceof Object) {
+            revokeTreeRecursively(node[key]);
+          }
+        }
+      }
+      if (this._treeMetadataMap.has(node)) {
+        this._treeMetadataMap.get(node).revoke();
+      }
+    };
+    revokeTreeRecursively(this._cachedProxy);
   };
   /**
    * Disables all proxies' traps, turning the observed object into a forward-proxy object, like a normal object that you can modify silently.
    */
   JSONPatcherProxy.prototype.disableTraps = function() {
-    this._treeMetadataMap.forEach(this._disableTrapsForTreeMetadata, this);
+    const disableTrapsRecursively = (node) => {
+      for (let key in node) {
+        if (node.hasOwnProperty(key)) {
+          if (node[key] instanceof Object) {
+            disableTrapsRecursively(node[key]);
+          }
+        }
+      }
+      if (this._treeMetadataMap.has(node)) {
+        this._disableTrapsForTreeMetadata(this._treeMetadataMap.get(node));
+      }
+    };
+    disableTrapsRecursively(this._cachedProxy);
   };
   /**
    * Restores callback back to the original one provided to `observe`.
