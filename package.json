@@ -1,6 +1,6 @@
 {
   "name": "@argentumcode/jsonpatcherproxy-commonjs",
-  "version": "0.1.0-0-1",
+  "version": "0.1.0-0-2",
   "description": "Lean and mean Javascript implementation of the JSON-Patch standard (RFC 6902). Update JSON documents using delta patches.",
   "main": "commonjs/jsonpatcherproxy.js",
   "typings": "index.d.ts",
@@ -13,7 +13,7 @@
     "bench-compare": "node --experimental-modules test/spec/proxyBenchmark.js --compare",
     "test": "node --experimental-modules jasmine-run.js",
     "test-debug": "node --inspect-brk --experimental-modules jasmine-run.js",
-    "version": "webpack --config webpack.config.cjs && git add -A"
+    "version": "webpack --config webpack.config.cjs && npm run build-commonjs && git add -A"
   },
   "keywords": [
     "proxy",
